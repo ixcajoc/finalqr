@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script> 
+</head>
+
+<body>
+  <!-- 
+  <br><br>
+  <label for="user">Type: user</label>
+  <br>
+  <input
+    type="file"
+    id="user"
+    capture="user"
+    accept="image/*"
+  >
+-->
+<!--<video id="preview"></video>-->
+  <label for="user">Type: user</label>
+    <br>
+    <input
+      type="file"
+      id="user"
+      capture="user"
+      accept="image/*"
+    >
+
+
+
+    <script>
+        let scanner = new Instascan.Scanner(
+            {
+                input: document.getElementById('user')
+            }
+        );
+        scanner.addListener('scan', function(content) {
+            alert('Contenido escaneado: ' + content);
+            window.open(content, "_blank");
+        });
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("No existe camara o dispositivo disponible!");
+            }
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
